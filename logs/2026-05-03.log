@@ -1,0 +1,6 @@
+2026-05-03 16:06:30 info: [ Database ]: Database (fiverscan) creating...
+2026-05-03 16:06:30 warn: [ Database ]: Database already exists. (fiverscan)
+2026-05-03 16:06:30 info: [ Database ]: Updating database...
+2026-05-03 16:06:31 info: [ Loaded ]: Database config
+2026-05-03 16:06:36 info: [ Loaded ]: Express config
+2026-05-03 16:06:36 info: [ Server ]: Server is started on 5006 port
