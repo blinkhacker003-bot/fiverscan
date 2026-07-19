@@ -1,0 +1,2 @@
+2026-07-19 04:37:26 error: [ Database ]: Database creating failed... connect ECONNREFUSED 127.0.0.1:3306
+2026-07-19 04:37:47 error: [ Database ]: Database creating failed... connect ECONNREFUSED 127.0.0.1:3306
