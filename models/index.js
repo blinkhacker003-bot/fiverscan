@@ -4,19 +4,31 @@ const Sequelize = require("sequelize");
 const config = require("../config/main");
 const basename = path.basename(module.filename);
 
-const sequelize = new Sequelize(config.database.name, config.database.user, config.database.pass, {
+const connectionOptions = {
     host: config.database.host,
     dialect: config.database.type,
     port: config.database.port,
     logging: config.database.logging,
     pool: {
-        max: 1000,
+        max: 5,
         min: 0,
-        acquire: 60000,
-        idle: 30000,
+        acquire: 30000,
+        idle: 10000,
     },
     timezone: config.database.timezone,
-});
+    dialectOptions: config.database.ssl
+        ? {
+              ssl: {
+                  require: true,
+                  rejectUnauthorized: false,
+              },
+          }
+        : undefined,
+};
+
+const sequelize = config.database.url
+    ? new Sequelize(config.database.url, connectionOptions)
+    : new Sequelize(config.database.name, config.database.user, config.database.pass, connectionOptions);
 
 const db = {};
 

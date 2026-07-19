@@ -4,20 +4,25 @@ const { combine, timestamp, printf } = format;
 const isEmpty = require("../utils/isEmpty");
 require("winston-daily-rotate-file");
 
-const baseLogger = createLogger({
-    format: combine(
-        timestamp(),
-        printf(({ level, message, timestamp }) => `${moment(timestamp).format("YYYY-MM-DD HH:mm:ss")} ${level}: ${message}`)
-    ),
-    transports: [
-        new transports.Console({ json: true }),
+const loggerTransports = [new transports.Console({ json: true })];
+
+if (process.env.NODE_ENV !== "production") {
+    loggerTransports.push(
         new transports.DailyRotateFile({
             filename: "logs/%DATE%.log",
             datePattern: "YYYY-MM-DD",
             json: true,
             maxFiles: "30d",
-        }),
-    ],
+        })
+    );
+}
+
+const baseLogger = createLogger({
+    format: combine(
+        timestamp(),
+        printf(({ level, message, timestamp }) => `${moment(timestamp).format("YYYY-MM-DD HH:mm:ss")} ${level}: ${message}`)
+    ),
+    transports: loggerTransports,
     exitOnError: false,
 });
 
